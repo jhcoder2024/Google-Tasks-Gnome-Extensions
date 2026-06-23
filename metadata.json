@@ -1,0 +1,10 @@
+{
+  "name": "Google Tasks",
+  "description": "Visualiza y gestiona tus tareas de Google Tasks desde el panel de GNOME",
+  "uuid": "google-tasks@jhcode.dev",
+  "settings-schema": "org.gnome.shell.extensions.google-tasks",
+  "shell-version": ["45", "46", "47", "48", "49", "50"],
+  "version": 1,
+  "url": "https://github.com/jhcoder/task_gnome_extension",
+  "session-modes": ["user"]
+}

@@ -1,0 +1,62 @@
+.google-tasks-panel-icon {
+    padding: 0 4px;
+}
+.google-tasks-menu {
+    min-width: 300px;
+    max-width: 450px;
+}
+.google-tasks-header {
+    padding: 8px 12px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.google-tasks-item {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.google-tasks-item:last-child {
+    border-bottom: none;
+}
+.google-tasks-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.google-tasks-item.completed .task-title {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.4);
+}
+.google-tasks-item .task-title {
+    font-size: 0.95em;
+}
+.google-tasks-item .task-due {
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 2px;
+}
+.google-tasks-item .task-notes {
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 2px;
+}
+.google-tasks-empty {
+    padding: 24px 12px;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    font-style: italic;
+}
+.google-tasks-loading {
+    padding: 24px 12px;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+.google-tasks-error {
+    padding: 12px;
+    color: #ff6b6b;
+    text-align: center;
+}
+.google-tasks-new-task {
+    padding: 8px 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.google-tasks-new-task entry {
+    margin-right: 8px;
+}

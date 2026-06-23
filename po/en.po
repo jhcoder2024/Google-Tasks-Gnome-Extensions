@@ -1,0 +1,74 @@
+# English translations for google-tasks-extension package.
+# Copyright (C) 2026 THE google-tasks-extension'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the google-tasks-extension package.
+# jhcoder <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: google-tasks-extension 1.0\n"
+"Report-Msgid-Bugs-To: jhcoder2024@gmail.com\n"
+"POT-Creation-Date: 2026-06-19 00:46-0400\n"
+"PO-Revision-Date: 2026-06-19 00:47-0400\n"
+"Last-Translator: jhcoder <EMAIL@ADDRESS>\n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/extension.js:96
+msgid "Sesión restaurada desde Keyring"
+msgstr "Session restored from Keyring"
+
+#: src/extension.js:104
+msgid "No hay sesión guardada"
+msgstr "No saved session"
+
+#: src/extension.js:110
+msgid "Google Tasks"
+msgstr "Google Tasks"
+
+#: src/extension.js:123
+msgid "Configura el Client ID en Preferencias de la extensión."
+msgstr "Configure the Client ID in the extension Preferences."
+
+#: src/extension.js:129
+msgid "Autenticando..."
+msgstr "Authenticating..."
+
+#: src/extension.js:148
+msgid "No se pudo autenticar. Revisa la configuración."
+msgstr "Authentication failed. Check the configuration."
+
+#: src/taskListWidget.js:37
+msgid "Cargando listas..."
+msgstr "Loading lists..."
+
+#: src/taskListWidget.js:239
+msgid "Título de la tarea"
+msgstr "Task title"
+
+#: src/taskListWidget.js:248
+msgid "Notas (opcional)"
+msgstr "Notes (optional)"
+
+#: src/taskListWidget.js:443
+msgid "Nombre de la lista"
+msgstr "List name"
+
+#: src/taskListWidget.js:563
+msgid "Reintentar"
+msgstr "Retry"
+
+#: src/taskListWidget.js:608
+msgid "Hoy"
+msgstr "Today"
+
+#: src/taskListWidget.js:608
+msgid "Mañana"
+msgstr "Tomorrow"
+
+#: src/taskItemWidget.js:57
+msgid "(sin título)"
+msgstr "(untitled)"

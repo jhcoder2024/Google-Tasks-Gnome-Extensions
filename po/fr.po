@@ -1,0 +1,75 @@
+# French translations for google-tasks-extension package
+# Traductions françaises du paquet google-tasks-extension.
+# Copyright (C) 2026 THE google-tasks-extension'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the google-tasks-extension package.
+# jhcoder <jhcoder@desktop-gcm91d0.bbrouter11>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: google-tasks-extension 1.0\n"
+"Report-Msgid-Bugs-To: jhcoder2024@gmail.com\n"
+"POT-Creation-Date: 2026-06-19 00:46-0400\n"
+"PO-Revision-Date: 2026-06-19 00:49-0400\n"
+"Last-Translator: jhcoder <jhcoder@desktop-gcm91d0.bbrouter11>\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/extension.js:96
+msgid "Sesión restaurada desde Keyring"
+msgstr ""
+
+#: src/extension.js:104
+msgid "No hay sesión guardada"
+msgstr ""
+
+#: src/extension.js:110
+msgid "Google Tasks"
+msgstr ""
+
+#: src/extension.js:123
+msgid "Configura el Client ID en Preferencias de la extensión."
+msgstr ""
+
+#: src/extension.js:129
+msgid "Autenticando..."
+msgstr ""
+
+#: src/extension.js:148
+msgid "No se pudo autenticar. Revisa la configuración."
+msgstr ""
+
+#: src/taskListWidget.js:37
+msgid "Cargando listas..."
+msgstr ""
+
+#: src/taskListWidget.js:239
+msgid "Título de la tarea"
+msgstr ""
+
+#: src/taskListWidget.js:248
+msgid "Notas (opcional)"
+msgstr ""
+
+#: src/taskListWidget.js:443
+msgid "Nombre de la lista"
+msgstr ""
+
+#: src/taskListWidget.js:563
+msgid "Reintentar"
+msgstr ""
+
+#: src/taskListWidget.js:608
+msgid "Hoy"
+msgstr ""
+
+#: src/taskListWidget.js:608
+msgid "Mañana"
+msgstr ""
+
+#: src/taskItemWidget.js:57
+msgid "(sin título)"
+msgstr ""

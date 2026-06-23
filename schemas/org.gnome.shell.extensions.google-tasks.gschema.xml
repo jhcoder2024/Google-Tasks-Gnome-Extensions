@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.google-tasks"
+          path="/org/gnome/shell/extensions/google-tasks/">
+    <key name="refresh-interval" type="i">
+      <default>300</default>
+      <summary>Intervalo de actualización</summary>
+      <description>Intervalo en segundos entre actualizaciones automáticas de la lista de tareas</description>
+    </key>
+    <key name="selected-task-list" type="s">
+      <default>''</default>
+      <summary>Lista de tareas seleccionada</summary>
+      <description>ID de la lista de tareas de Google Tasks actualmente seleccionada</description>
+    </key>
+    <key name="oauth-client-id" type="s">
+      <default>''</default>
+      <summary>ID de cliente OAuth</summary>
+      <description>Client ID de OAuth 2.0 obtenido de Google Cloud Console</description>
+    </key>
+    <key name="oauth-client-secret" type="s">
+      <default>''</default>
+      <summary>Secreto de cliente OAuth</summary>
+      <description>Client Secret de OAuth 2.0 obtenido de Google Cloud Console</description>
+    </key>
+    <key name="first-run" type="b">
+      <default>true</default>
+      <summary>Primer inicio</summary>
+      <description>Indica si es la primera vez que se ejecuta la extensión</description>
+    </key>
+    <key name="use-goa" type="b">
+      <default>true</default>
+      <summary>Usar GNOME Online Accounts</summary>
+      <description>Intentar usar GOA para autenticación antes de usar OAuth2 manual</description>
+    </key>
+    <key name="show-notifications" type="b">
+      <default>true</default>
+      <summary>Mostrar notificaciones</summary>
+      <description>Mostrar notificaciones de tareas próximas a vencer</description>
+    </key>
+    <key name="notify-days-before" type="i">
+      <default>1</default>
+      <summary>Días de anticipación</summary>
+      <description>Notificar tareas que vencen en este número de días (0 = solo hoy)</description>
+    </key>
+  </schema>
+</schemalist>
