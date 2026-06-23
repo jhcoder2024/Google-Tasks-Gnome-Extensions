@@ -265,3 +265,83 @@ journalctl -f -o cat /usr/bin/gnome-shell
 GNU General Public License v3.0 or later (GPL-3.0-or-later)
 
 Véase el archivo [LICENSE](LICENSE) para más detalles.
+
+
+## Publicación en extensions.gnome.org
+
+La extensión está preparada para ser publicada en [extensions.gnome.org](https://extensions.gnome.org/).
+
+### Requisitos para publicación
+
+1. **Cuenta de desarrollador** en extensions.gnome.org
+2. **Repositorio público** en GitHub (o similar)
+3. **Licencia** definida (GPL-3.0)
+4. **Screenshots** de la extensión en funcionamiento
+5. **Descripción** clara en el listing
+
+### Pasos para publicar
+
+1. Subir el código a un repositorio público:
+   ```bash
+   git remote add origin https://github.com/jhcoder/task_gnome_extension.git
+   git push -u origin main
+   ```
+
+2. Crear un tag de versión:
+   ```bash
+   git tag -a v1.0.0 -m "Primera versión estable"
+   git push origin v1.0.0
+   ```
+
+3. Ir a [extensions.gnome.org/upload/](https://extensions.gnome.org/upload/)
+4. Subir el archivo `.zip` del repositorio (o vincular el repositorio de GitHub)
+5. Completar el formulario con:
+   - **Nombre**: Google Tasks
+   - **Descripción**: Visualiza y gestiona tus tareas de Google Tasks desde el panel de GNOME
+   - **Versiones de GNOME Shell**: 45, 46, 47, 48, 49, 50
+   - **Licencia**: GPL-3.0-or-later
+   - **URL**: https://github.com/jhcoder/task_gnome_extension
+
+6. Esperar la revisión y aprobación
+
+### Generar el zip para subir manualmente
+
+```bash
+# Crear un zip con la estructura correcta
+cd ~/.local/share/gnome-shell/extensions/google-tasks@jhcode.dev
+zip -r ~/google-tasks-extension.zip . -x "po/*.po" "po/*.pot"
+```
+
+## Mejoras pendientes
+
+### HU-001: Mejora de notificaciones
+**Estado**: Pendiente | **Prioridad**: Media | **[Ver detalle](docs/HU_NOTIFICACIONES.md)**
+
+- Agregar sonido a las notificaciones de tareas próximas
+- Notificaciones persistentes hasta que el usuario las descarte
+- Configuración de horas de silencio (no molestar)
+- Notificaciones recurrentes para tareas vencidas
+- Agrupación de notificaciones cuando hay múltiples tareas
+
+### HU-002: Soporte de subtareas
+**Estado**: Pendiente | **Prioridad**: Baja | **[Ver detalle](docs/HU_SUBTAREAS.md)**
+
+- Visualización de subtareas con indicador de expansión
+- Creación de subtareas desde el menú de edición
+- Gestión individual de subtareas (completar, editar, eliminar)
+- Completado automático de tarea principal al completar todas las subtareas
+- Sincronización correcta con Google Tasks API mediante el campo `parent`
+
+## Contribuir
+
+Las contribuciones son bienvenidas. Por favor:
+
+1. Haz fork del repositorio
+2. Crea una rama para tu feature (`git checkout -b feature/amazing-feature`)
+3. Haz commit de tus cambios (`git commit -m 'Add amazing feature'`)
+4. Push a la rama (`git push origin feature/amazing-feature`)
+5. Abre un Pull Request
+
+## Licencia
+
+GPL-3.0-or-later

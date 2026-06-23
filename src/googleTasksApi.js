@@ -158,6 +158,7 @@ export class GoogleTasksApi {
     async updateTaskList(taskListId, title) {
         const path = `/users/@me/lists/${encodeURIComponent(taskListId)}`;
         return await this._request('PUT', path, {
+            id: taskListId,
             title: title
         });
     }
