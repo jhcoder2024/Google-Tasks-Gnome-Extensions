@@ -79,11 +79,15 @@ export class GoogleTasksApi {
      */
     async createTask(taskListId, task) {
         const path = `/lists/${encodeURIComponent(taskListId)}/tasks`;
-        return await this._request('POST', path, {
+        const body = {
             title: task.title,
-            notes: task.notes || '',
-            due: task.due || null
-        });
+            notes: task.notes || ''
+        };
+        // Formatear fecha a ISO completo si tiene valor
+        if (task.due) {
+            body.due = task.due + 'T00:00:00.000Z';
+        }
+        return await this._request('POST', path, body);
     }
     /**
      * Actualizar una tarea existente
@@ -96,9 +100,9 @@ export class GoogleTasksApi {
             notes: task.notes || '',
             status: task.status || 'needsAction'
         };
-        // Solo incluir due si tiene valor (no enviar null)
+        // Incluir due solo si tiene valor, formateado a ISO completo
         if (task.due) {
-            body.due = task.due;
+            body.due = task.due + 'T00:00:00.000Z';
         }
         return await this._request('PATCH', path, body);
     }

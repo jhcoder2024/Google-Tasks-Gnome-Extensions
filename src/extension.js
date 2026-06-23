@@ -55,6 +55,7 @@ class GoogleTasksIndicator extends PanelMenu.Button {
         this._taskListWidget = null;
         this._isAuthenticated = false;
         this._refreshTimerId = null;
+        this._suspendId = null;
 
         // Conectar señal de apertura del menú para refrescar
         this.menu.connect('open-state-changed', (menu, isOpen) => {
@@ -80,6 +81,16 @@ class GoogleTasksIndicator extends PanelMenu.Button {
 
         // Intentar autenticación automática con tokens guardados
         this._tryAutoAuth();
+
+        // Conectar señal de reanudación del sistema para refrescar tareas
+        this._suspendId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 60, () => {
+            // Refrescar tareas periódicamente (cada 60s)
+            if (this._isAuthenticated && this._taskListWidget) {
+                this._taskListWidget.refresh();
+                this._checkDueTasks();
+            }
+            return GLib.SOURCE_CONTINUE;
+        });
     }
 
     async _tryAutoAuth() {
@@ -201,6 +212,10 @@ class GoogleTasksIndicator extends PanelMenu.Button {
 
     destroy() {
         this._stopAutoRefresh();
+        if (this._suspendId) {
+            GLib.source_remove(this._suspendId);
+            this._suspendId = null;
+        }
         this._api = null;
         if (this._oauthManager) {
             this._oauthManager.destroy();

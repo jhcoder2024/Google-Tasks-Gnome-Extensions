@@ -37,16 +37,20 @@ export class TaskListWidget {
         menu.removeAll();
         this._showLoading(menu, _('Cargando listas...'));
         try {
+            // Siempre recargar listas desde la API
             this._taskLists = await this._api.listTaskLists();
             if (this._taskLists.length === 0) {
                 menu.removeAll();
                 this._renderEmptyState(menu);
                 return;
             }
-            if (!this._currentTaskListId) {
+            // Verificar que la lista actual sigue existiendo
+            const listExists = this._taskLists.some(l => l.id === this._currentTaskListId);
+            if (!this._currentTaskListId || !listExists) {
                 this._currentTaskListId = this._taskLists[0].id;
                 this._currentTaskListTitle = this._taskLists[0].title;
             }
+            // Forzar recarga de tareas desde la API (sin caché)
             await this._refreshMenu(menu);
         } catch (e) {
             logError(e, 'Google Tasks: Error cargando listas');
@@ -283,11 +287,9 @@ export class TaskListWidget {
             try {
                 const taskData = {
                     title: title,
-                    notes: notesEntry.get_text().trim()
+                    notes: notesEntry.get_text().trim(),
+                    due: dueDate || null
                 };
-                if (dueDate) {
-                    taskData.due = dueDate;
-                }
                 await this._api.createTask(this._currentTaskListId, taskData);
                 await this._refreshMenu(menu);
             } catch (e) {
@@ -383,6 +385,7 @@ export class TaskListWidget {
                     notes: notesEntry.get_text().trim(),
                     status: task.status
                 };
+                // Solo incluir due si el usuario escribió algo
                 if (dueDate) {
                     taskData.due = dueDate;
                 }
