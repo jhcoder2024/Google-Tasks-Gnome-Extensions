@@ -15,16 +15,6 @@ const SCOPES = 'https://www.googleapis.com/auth/tasks';
 const REDIRECT_URI = 'http://127.0.0.1:18080';
 const CALLBACK_PORT = 18080;
 
-// Schema para almacenamiento en GNOME Keyring
-const KEYRING_SCHEMA = new Secret.Schema(
-    'org.gnome.shell.extensions.google-tasks',
-    Secret.SchemaFlags.NONE,
-    {
-        'service': Secret.SchemaAttributeType.STRING,
-        'account': Secret.SchemaAttributeType.STRING
-    }
-);
-
 const KEYRING_ATTRS = {
     'service': 'google-tasks',
     'account': 'default'
@@ -44,6 +34,20 @@ export class OAuthManager {
         // Estado para PKCE + State
         this._pendingState = null;
         this._pendingCodeVerifier = null;
+    }
+
+    static _getKeyringSchema() {
+        if (!this._keyringSchema) {
+            this._keyringSchema = new Secret.Schema(
+                'org.gnome.shell.extensions.google-tasks',
+                Secret.SchemaFlags.NONE,
+                {
+                    'service': Secret.SchemaAttributeType.STRING,
+                    'account': Secret.SchemaAttributeType.STRING
+                }
+            );
+        }
+        return this._keyringSchema;
     }
 
     /**
@@ -362,8 +366,14 @@ export class OAuthManager {
         const data = JSON.parse(decoder.decode(response));
         if (data.access_token) {
             this._accessToken = data.access_token;
-            this._refreshToken = data.refresh_token;
-            await this._storeTokens(data.access_token, data.refresh_token);
+            // Google no siempre devuelve un nuevo refresh_token en re-autorizaciones
+            // si el anterior sigue siendo válido. Preservar el existente.
+            if (!data.refresh_token) {
+                this._refreshToken = this._refreshToken || await this._getStoredRefreshToken();
+            } else {
+                this._refreshToken = data.refresh_token;
+            }
+            await this._storeTokens(data.access_token, this._refreshToken);
             return data;
         }
         throw new Error('Error obteniendo token: ' + (data.error_description || data.error || 'Error desconocido'));
@@ -380,6 +390,18 @@ export class OAuthManager {
             this._refreshToken = await this._getStoredRefreshToken();
         }
         if (!this._refreshToken) {
+            // Fallback: intentar renovar token via GOA
+            if (this._settings.get_boolean('use-goa')) {
+                try {
+                    const goaToken = await this._tryGOA();
+                    if (goaToken) {
+                        this._accessToken = goaToken;
+                        return goaToken;
+                    }
+                } catch (e) {
+                    log('GOA refresh fallback falló: ' + e.message);
+                }
+            }
             throw new Error('No hay refresh token disponible. Re-autenticación necesaria.');
         }
         const params = Soup.form_encode_hash({
@@ -448,7 +470,7 @@ export class OAuthManager {
     async _storeTokens(accessToken, refreshToken) {
         try {
             Secret.password_store_sync(
-                KEYRING_SCHEMA,
+                OAuthManager._getKeyringSchema(),
                 KEYRING_ATTRS,
                 Secret.COLLECTION_DEFAULT,
                 'Google Tasks - Access Token',
@@ -458,7 +480,7 @@ export class OAuthManager {
             const refreshAttrs = { ...KEYRING_ATTRS, 'token-type': 'refresh' };
             if (refreshToken) {
                 Secret.password_store_sync(
-                    KEYRING_SCHEMA,
+                    OAuthManager._getKeyringSchema(),
                     refreshAttrs,
                     Secret.COLLECTION_DEFAULT,
                     'Google Tasks - Refresh Token',
@@ -479,7 +501,7 @@ export class OAuthManager {
     async _getStoredAccessToken() {
         try {
             const password = Secret.password_lookup_sync(
-                KEYRING_SCHEMA,
+                OAuthManager._getKeyringSchema(),
                 KEYRING_ATTRS,
                 null
             );
@@ -498,7 +520,7 @@ export class OAuthManager {
         try {
             const refreshAttrs = { ...KEYRING_ATTRS, 'token-type': 'refresh' };
             const password = Secret.password_lookup_sync(
-                KEYRING_SCHEMA,
+                OAuthManager._getKeyringSchema(),
                 refreshAttrs,
                 null
             );
@@ -517,13 +539,13 @@ export class OAuthManager {
         this._refreshToken = null;
         try {
             Secret.password_clear_sync(
-                KEYRING_SCHEMA,
+                OAuthManager._getKeyringSchema(),
                 KEYRING_ATTRS,
                 null
             );
             const refreshAttrs = { ...KEYRING_ATTRS, 'token-type': 'refresh' };
             Secret.password_clear_sync(
-                KEYRING_SCHEMA,
+                OAuthManager._getKeyringSchema(),
                 refreshAttrs,
                 null
             );

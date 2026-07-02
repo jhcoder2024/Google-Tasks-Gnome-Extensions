@@ -564,9 +564,15 @@ export class TaskListWidget {
         errorItem.setSensitive(false);
         menu.addMenuItem(errorItem);
         menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-        menu.addAction(_('Reintentar'), () => {
-            this.buildMenu(menu);
-        });
+        if (this._onReconnect) {
+            menu.addAction('Reconectar', () => {
+                this._onReconnect();
+            });
+        } else {
+            menu.addAction(_('Reintentar'), () => {
+                this.buildMenu(menu);
+            });
+        }
     }
 
     _checkDueTasks() {

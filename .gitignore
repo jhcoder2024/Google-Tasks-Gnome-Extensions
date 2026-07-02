@@ -1,1 +1,6 @@
+# Build artifacts
+gschemas.compiled
+*.mo
+
+# Docs
 docs/*

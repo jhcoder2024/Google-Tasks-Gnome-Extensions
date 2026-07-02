@@ -49,12 +49,6 @@ install_data(
 )
 
 # ─── Translations ──────────────────────────────────────────────────────────────
-# Install .po source files alongside the extension (useful for development/debug)
-install_subdir('po',
-  install_dir: extension_dir,
-  strip_directory: false
-)
-
 # Compile .po → .mo and install into the system locale directory
 subdir('po')
 
